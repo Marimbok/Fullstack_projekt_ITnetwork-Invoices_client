@@ -55,7 +55,22 @@ const PersonForm = () => {
 
     useEffect(() => {
         if (id) {
-            apiGet("/api/persons/" + id).then((data) => setPerson(data));
+            apiGet("/api/persons/" + id).then((data) => {
+                setPerson({
+                    name: data.name,
+                    identificationNumber: data.identificationNumber,
+                    taxNumber: data.taxNumber,
+                    accountNumber: data.accountNumber,
+                    bankCode: data.bankCode,
+                    iban: data.iban,
+                    telephone: data.telephone,
+                    mail: data.mail,
+                    street: data.street,
+                    zip: data.zip,
+                    city: data.city,
+                    country: data.Country,
+                    note: data.note
+            })});
         }
     }, [id]);
 
@@ -66,7 +81,10 @@ const PersonForm = () => {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                navigate("/persons");
+                console.log(person)
+                setTimeout(() => {
+                    navigate("/persons")
+                }, 2000);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -86,12 +104,12 @@ const PersonForm = () => {
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
-            {sent && (
+            {sent && success ? (
                 <FlashMessage
                     theme={success ? "success" : ""}
-                    text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
+                    text={success ? "Uložení osoby proběhlo úspěšně." : ""}
                 />
-            )}
+            ) : null}
             <form onSubmit={handleSubmit}>
                 <InputField
                     required={true}
@@ -103,6 +121,7 @@ const PersonForm = () => {
                     value={person.name}
                     handleChange={(e) => {
                         setPerson({...person, name: e.target.value});
+                        console.log(person)
                     }}
                 />
 
