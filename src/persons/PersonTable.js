@@ -27,11 +27,12 @@ const PersonTable = ({label, items, deletePerson}) => {
     return (
         <div>
             <p>
-                {label} {items.length}
+                <strong>
+                    {label} {items.length}
+                </strong>
             </p>
-
-            <table className="table table-bordered">
-                <thead>
+            <table className="table table-bordered text-center align-middle">
+                <thead className="table-light">
                 <tr>
                     <th>#</th>
                     <th>Jméno</th>
@@ -42,7 +43,7 @@ const PersonTable = ({label, items, deletePerson}) => {
                 {items.map((item, index) => (
                     <tr key={index + 1}>
                         <td>{index + 1}</td>
-                        <td>{item.name}</td>
+                        <td><Link to={"/persons/show/" + item._id} className="nav nav-link">{item.name}</Link></td>
                         <td>
                             <div className="btn-group">
                                 <Link

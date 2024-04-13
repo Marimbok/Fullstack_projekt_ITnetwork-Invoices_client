@@ -66,7 +66,9 @@ const PersonForm = () => {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                navigate("/persons");
+                setTimeout(() => {
+                    navigate("/persons")
+                }, 2000);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -86,12 +88,12 @@ const PersonForm = () => {
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
-            {sent && (
+            {sent && success ? (
                 <FlashMessage
                     theme={success ? "success" : ""}
-                    text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
+                    text={success ? "Uložení osoby proběhlo úspěšně." : ""}
                 />
-            )}
+            ) : null}
             <form onSubmit={handleSubmit}>
                 <InputField
                     required={true}

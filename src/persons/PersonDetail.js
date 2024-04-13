@@ -25,20 +25,29 @@ import {useParams} from "react-router-dom";
 
 import {apiGet} from "../utils/api";
 import Country from "./Country";
+import { Link } from "react-router-dom";
 
 const PersonDetail = () => {
     const {id} = useParams();
     const [person, setPerson] = useState({});
+    const [personSales, setPersonSales] = useState([]);
+    const [personPurchases, setPersonPurchases] = useState([]);
 
     useEffect(() => {
-        // TODO: Add HTTP req.
+        apiGet("/api/persons/" + id).then((data) => setPerson(data));
     }, [id]);
+    useEffect(() => {
+        apiGet("/api/identification/" + person.identificationNumber + "/sales").then((data) => setPersonSales(data));
+        apiGet("/api/identification/" + person.identificationNumber + "/purchases").then((data) => setPersonPurchases(data));
+    }, [person.identificationNumber]);
+
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
 
     return (
         <>
             <div>
                 <h1>Detail osoby</h1>
+                
                 <hr/>
                 <h3>{person.name} ({person.identificationNumber})</h3>
                 <p>
@@ -72,6 +81,70 @@ const PersonDetail = () => {
                     <br/>
                     {person.note}
                 </p>
+                <p>
+                <Link to={"/persons/edit/" + id} className="btn btn-sm btn-warning">
+                 Upravit
+                </Link>
+                </p>
+
+                <h4 className="text-success">Vystavené faktury</h4>
+                <p>Počet vystavených faktur: {personSales.length}</p>
+                <table className="table table-bordered">
+                    <thead className="table-success ">
+                        <tr>
+                            <th>#</th>
+                            <th>Číslo faktury</th>
+                            <th>Datum vystavení</th>
+                            <th>Prodejce</th>
+                            <th>Kupující</th>
+                            <th>Produkt/y</th>
+                            <th>Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table-light">
+                        {personSales.map((personSale, index) => (
+                            <tr key={index + 1}>
+                                <td>{index + 1}</td>
+                                <td>{personSale.invoiceNumber}</td>
+                                <td>{personSale.issued}</td>
+                                <td>{personSale.seller.name}</td>
+                                <td>{personSale.buyer.name}</td>
+                                <td>{personSale.product}</td>
+                                <td>{personSale.price}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <h4 className="text-danger">Obdržené faktury</h4>
+                <p>Počet obdržených faktur: {personPurchases.length}</p>
+                <table className="table table-bordered">
+                    <thead className="table-danger ">
+                        <tr>
+                            <th>#</th>
+                            <th>Číslo faktury</th>
+                            <th>Datum vystavení</th>
+                            <th>Prodejce</th>
+                            <th>Kupující</th>
+                            <th>Produkt/y</th>
+                            <th>Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table-light">
+                        {personPurchases.map((personPurchase, index) => (
+                            <tr key={index + 1}>
+                                <td>{index + 1}</td>
+                                <td>{personPurchase.invoiceNumber}</td>
+                                <td>{personPurchase.issued}</td>
+                                <td>{personPurchase.seller.name}</td>
+                                <td>{personPurchase.buyer.name}</td>
+                                <td>{personPurchase.product}</td>
+                                <td>{personPurchase.price}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
             </div>
         </>
     );
