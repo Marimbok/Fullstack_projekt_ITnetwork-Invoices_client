@@ -81,7 +81,6 @@ const PersonForm = () => {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                console.log(person)
                 setTimeout(() => {
                     navigate("/persons")
                 }, 2000);
