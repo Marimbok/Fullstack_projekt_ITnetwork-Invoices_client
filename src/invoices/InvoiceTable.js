@@ -27,6 +27,7 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                     <tr className="col">
                         <th>#</th>
                         <th>Datum vystavení</th>
+                        <th>Datum splatnosti</th>
                         <th>Číslo faktury</th>
                         <th>Kupující</th>
                         <th>Prodávající</th>
@@ -40,6 +41,7 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                         <tr key={index + 1}>
                             <td>{index + 1}</td>
                             <td>{item.issued}</td>
+                            <td>{item.dueDate}</td>
                             <td>{item.invoiceNumber}</td>
                             <td><Link to={"/persons/show/" + item.buyer._id} className="nav nav-link">{item.buyer.name}</Link></td>
                             <td><Link to={"/persons/show/" + item.seller._id} className="nav nav-link">{item.seller.name}</Link></td>
