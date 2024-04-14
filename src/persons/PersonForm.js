@@ -55,28 +55,12 @@ const PersonForm = () => {
 
     useEffect(() => {
         if (id) {
-            apiGet("/api/persons/" + id).then((data) => {
-                setPerson({
-                    name: data.name,
-                    identificationNumber: data.identificationNumber,
-                    taxNumber: data.taxNumber,
-                    accountNumber: data.accountNumber,
-                    bankCode: data.bankCode,
-                    iban: data.iban,
-                    telephone: data.telephone,
-                    mail: data.mail,
-                    street: data.street,
-                    zip: data.zip,
-                    city: data.city,
-                    country: data.Country,
-                    note: data.note
-            })});
+            apiGet("/api/persons/" + id).then((data) => setPerson(data));
         }
     }, [id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         (id ? apiPut("/api/persons/" + id, person) : apiPost("/api/persons", person))
             .then((data) => {
                 setSent(true);
@@ -120,7 +104,6 @@ const PersonForm = () => {
                     value={person.name}
                     handleChange={(e) => {
                         setPerson({...person, name: e.target.value});
-                        console.log(person)
                     }}
                 />
 
