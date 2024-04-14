@@ -26,8 +26,8 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                 <thead className="table-light ">
                     <tr className="col">
                         <th>#</th>
-                        <th>Datum vystavení</th>
-                        <th>Datum splatnosti</th>
+                        <th>Vystaveno</th>
+                        <th>Splatnost</th>
                         <th>Číslo faktury</th>
                         <th>Kupující</th>
                         <th>Prodávající</th>
