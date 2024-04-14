@@ -67,7 +67,7 @@ const PersonForm = () => {
                 setSuccess(true);
                 setTimeout(() => {
                     navigate("/persons")
-                }, 2000);
+                }, 1500);
             })
             .catch((error) => {
                 console.log(error.message);

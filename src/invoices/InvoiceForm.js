@@ -29,6 +29,8 @@ const InvoiceForm = () => {
     const [sentState, setSent] = useState(false);
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
+    const sellerID = invoice.seller._id;
+    const buyerID = invoice.buyer._id;
 
     useEffect(() => {
         if (id) {
@@ -38,16 +40,16 @@ const InvoiceForm = () => {
         }
         apiGet("/api/persons").then((data) => setPersonList(data));
     }, [id]);
-
+    console.log(invoice);
     const handleSubmit = ((e) => {
         e.preventDefault();
         setSuccess(false);
         setError(null);
         setTimeout(() => {
-            if(invoice.seller._id===invoice.buyer._id){
+            if(sellerID===buyerID){
                 setError("Prodejce a kupující nesmí být stejná osoba")
 
-            } else if((invoice.seller._id=="") || (invoice.buyer._id=="")){
+            } else if((sellerID=="" || sellerID==="false") || (buyerID=="" || buyerID==="false")){
                 setError("Prodejce i kupující musí být vyplněny");
             } else{
                 (id ? apiPut("/api/invoices/" + id, invoice) : apiPost("/api/invoices", invoice))
