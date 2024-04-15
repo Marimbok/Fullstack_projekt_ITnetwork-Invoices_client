@@ -94,7 +94,8 @@ const PersonDetail = () => {
                         <tr>
                             <th>#</th>
                             <th>Číslo faktury</th>
-                            <th>Datum vystavení</th>
+                            <th>Vystaveno</th>
+                            <th>Splatnost</th>
                             <th>Prodejce</th>
                             <th>Kupující</th>
                             <th>Produkt/y</th>
@@ -107,10 +108,11 @@ const PersonDetail = () => {
                                 <td>{index + 1}</td>
                                 <td>{personSale.invoiceNumber}</td>
                                 <td>{personSale.issued}</td>
+                                <td>{personSale.dueDate}</td>
                                 <td>{personSale.seller.name}</td>
                                 <td>{personSale.buyer.name}</td>
                                 <td>{personSale.product}</td>
-                                <td>{personSale.price}</td>
+                                <td>{personSale.price} Kč</td>
                             </tr>
                         ))}
                     </tbody>
@@ -123,7 +125,8 @@ const PersonDetail = () => {
                         <tr>
                             <th>#</th>
                             <th>Číslo faktury</th>
-                            <th>Datum vystavení</th>
+                            <th>Vystaveno</th>
+                            <th>Splatnost</th>
                             <th>Prodejce</th>
                             <th>Kupující</th>
                             <th>Produkt/y</th>
@@ -136,10 +139,11 @@ const PersonDetail = () => {
                                 <td>{index + 1}</td>
                                 <td>{personPurchase.invoiceNumber}</td>
                                 <td>{personPurchase.issued}</td>
+                                <td>{personPurchase.dueDate}</td>
                                 <td>{personPurchase.seller.name}</td>
                                 <td>{personPurchase.buyer.name}</td>
                                 <td>{personPurchase.product}</td>
-                                <td>{personPurchase.price}</td>
+                                <td>{personPurchase.price} Kč</td>
                             </tr>
                         ))}
                     </tbody>

@@ -26,9 +26,9 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                 <thead className="table-light ">
                     <tr className="col">
                         <th>#</th>
+                        <th>Číslo faktury</th>
                         <th>Vystaveno</th>
                         <th>Splatnost</th>
-                        <th>Číslo faktury</th>
                         <th>Kupující</th>
                         <th>Prodávající</th>
                         <th>Produkt/y</th>
@@ -40,9 +40,9 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                     {items.map((item, index) => (
                         <tr key={index + 1}>
                             <td>{index + 1}</td>
+                            <td>{item.invoiceNumber}</td>
                             <td>{item.issued}</td>
                             <td>{item.dueDate}</td>
-                            <td>{item.invoiceNumber}</td>
                             <td><Link to={"/persons/show/" + item.buyer._id} className="nav nav-link">{item.buyer.name}</Link></td>
                             <td><Link to={"/persons/show/" + item.seller._id} className="nav nav-link">{item.seller.name}</Link></td>
                             <td>{item.product}</td>
